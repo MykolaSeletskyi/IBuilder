@@ -3,6 +3,7 @@
 #include <Windows.h>
 using namespace std;
 //const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+class House;
 __interface IBuilder
 {
 	void buildFoundation(House& house);
@@ -124,6 +125,13 @@ public:
 	};
 	size_t getProgress()override
 	{
+		workPercentage = 0;
+		workPercentage += foundation.getProgress() / 5;
+		workPercentage += walls.getProgress() / 5;
+		workPercentage += door.getProgress() / 5;
+		workPercentage += window.getProgress() / 5;
+		workPercentage += roof.getProgress() / 5;
+		cout << "House : " << workPercentage << " %\n";
 		return workPercentage;
 	};
 };
@@ -153,25 +161,26 @@ public:
 };
 class Foreman:public Builder
 {
-	size_t getProgressFoundation(House& house)
+public:
+	void getProgressFoundation(House& house)
 	{
-		return house.foundation.getProgress();
+		cout<<"Foundation : "<< house.foundation.getProgress()<<" %\n";
 	};
-	size_t getProgressWalls(House& house)
+	void getProgressWalls(House& house)
 	{
-		return house.walls.getProgress();
+		cout << "Walls : " << house.walls.getProgress() << " %\n";
 	};
-	size_t getProgressWindow(House& house)
+	void getProgressWindow(House& house)
 	{
-		return house.window.getProgress();
+		cout << "Window : " << house.window.getProgress() << " %\n";
 	};
-	size_t getProgressDoor(House& house)
+	void getProgressDoor(House& house)
 	{
-		return house.door.getProgress();
+		cout << "Door : " << house.door.getProgress() << " %\n";
 	};
-	size_t getProgressRoof(House& house)
+	void getProgressRoof(House& house)
 	{
-		return house.roof.getProgress();
+		cout << "Roof : " << house.roof.getProgress() << " %\n";
 	};
 };
 
